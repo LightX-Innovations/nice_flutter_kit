@@ -24,7 +24,7 @@ class NiceFilterResultModel<T> extends Equatable {
         ),
         page = NiceFilterResultPageModel.fromJson(json["page"]),
         total = json["total"],
-        values = [for (final value in json["values"]) NiceConfig.dataFilterConfig!.deserialize(value)];
+        values = [for (final value in json["values"]) NiceConfig.dataFilterConfig!.deserialize(value)],
         subscriptionIds = json["subscriptionIds"];
 
   NiceFilterResultModel<T> copyWith({
@@ -41,5 +41,10 @@ class NiceFilterResultModel<T> extends Equatable {
   }
 
   @override
-  List<Object> get props => [page, total, values, subscriptionIds,];
+  List<Object> get props => [
+        page,
+        total,
+        values,
+        subscriptionIds,
+      ];
 }
