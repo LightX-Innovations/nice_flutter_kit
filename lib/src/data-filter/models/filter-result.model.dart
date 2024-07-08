@@ -25,7 +25,7 @@ class NiceFilterResultModel<T> extends Equatable {
         page = NiceFilterResultPageModel.fromJson(json["page"]),
         total = json["total"],
         values = [for (final value in json["values"]) NiceConfig.dataFilterConfig!.deserialize(value)],
-        subscriptionIds = json["subscriptionIds"];
+        subscriptionIds = json["subscriptionIds"] as List<int>?;
 
   NiceFilterResultModel<T> copyWith({
     NiceFilterResultPageModel? page,
