@@ -37,6 +37,7 @@ class NiceFilterResultModel<T> extends Equatable {
       page: page ?? this.page,
       total: total ?? this.total,
       values: values ?? this.values,
+      subscriptionIds: subscriptionIds ?? this.subscriptionIds,
     );
   }
 
