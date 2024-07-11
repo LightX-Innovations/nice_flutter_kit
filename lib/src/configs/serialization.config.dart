@@ -2,9 +2,9 @@ import "package:collection/collection.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-class JsonAdapter {
-  final dynamic Function(Map<String, dynamic>)? deserializer;
-  final dynamic Function(dynamic)? serializer;
+class JsonAdapter<T> {
+  final T Function(Map<String, dynamic> json)? deserializer;
+  final Map<String, dynamic> Function(T value)? serializer;
 
   const JsonAdapter({
     required this.deserializer,
@@ -33,12 +33,20 @@ class NiceSerializationConfig {
     return adapters[T]!.deserializer!(json);
   }
 
+  List<T> deserializeList<T>(List<Map<String, dynamic>> json) {
+    return json.map((it) => deserialize<T>(it)).toList();
+  }
+
   Map<String, dynamic> serialize<T>(T value) {
     if (!canSerialize<T>()) {
       throw "Unimplemented serializer function for type ${T.toString()}";
     }
 
     return adapters[T]!.serializer!(value);
+  }
+
+  List<Map<String, dynamic>> serializeList<T>(List<T> values) {
+    return values.map((it) => serialize<T>(it)).toList();
   }
 
   List<T> getEnumValues<T>() {
