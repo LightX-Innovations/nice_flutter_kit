@@ -10,7 +10,7 @@ import "package:rxdart/rxdart.dart";
 /// as the [NiceBaseListConfig].
 ///
 /// This widget is used to filter items based on a text input.
-class NiceBaseListSearchBar<D> extends StatefulWidget {
+class NiceBaseListSearchBar<D extends FreezedClass> extends StatefulWidget {
   /// [BoxDecoration] of the search bar.
   final BoxDecoration decoration;
 
@@ -35,7 +35,7 @@ class NiceBaseListSearchBar<D> extends StatefulWidget {
   State<NiceBaseListSearchBar<D>> createState() => _NiceBaseListSearchBarState();
 }
 
-class _NiceBaseListSearchBarState<D> extends State<NiceBaseListSearchBar<D>> {
+class _NiceBaseListSearchBarState<D extends FreezedClass> extends State<NiceBaseListSearchBar<D>> {
   final _textEditingController = TextEditingController();
   final _searchSubject = BehaviorSubject<String>();
 

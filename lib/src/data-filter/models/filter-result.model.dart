@@ -1,51 +1,32 @@
-import "package:equatable/equatable.dart";
+import "package:freezed_annotation/freezed_annotation.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-// ignore: must_be_immutable
-class NiceFilterResultModel<T> extends Equatable {
-  final NiceFilterResultPageModel page;
-  final int total;
-  final List<T> values;
-  final List<int>? subscriptionIds;
+part "filter-result.model.freezed.dart";
+part "filter-result.model.g.dart";
 
+@freezed
+@JsonSerializable(genericArgumentFactories: true)
+class NiceFilterResultModel<T extends FreezedClass> with _$NiceFilterResultModel<T> implements FreezedClass {
   int? get nextPage => page.number * page.size + values.length < total ? page.number + 1 : null;
 
-  const NiceFilterResultModel({
-    required this.page,
-    required this.total,
-    required this.values,
-    this.subscriptionIds,
-  });
-
-  NiceFilterResultModel.fromJson(Json json)
-      : assert(
-          NiceConfig.dataFilterConfig != null,
-          "NiceDataFilter wasn't initialized, please provide a NiceDataFilterConfig.",
-        ),
-        page = NiceFilterResultPageModel.fromJson(json["page"]),
-        total = json["total"],
-        values = [for (final value in json["values"]) NiceConfig.dataFilterConfig!.deserialize(value)],
-        subscriptionIds = (json["subscriptionIds"] as List<dynamic>?)?.map((e) => e as int).toList();
-
-  NiceFilterResultModel<T> copyWith({
-    NiceFilterResultPageModel? page,
-    int? total,
-    List<T>? values,
+  const factory NiceFilterResultModel({
+    required NiceFilterResultPageModel page,
+    required int total,
+    required List<T> values,
     List<int>? subscriptionIds,
-  }) {
-    return NiceFilterResultModel(
-      page: page ?? this.page,
-      total: total ?? this.total,
-      values: values ?? this.values,
-      subscriptionIds: subscriptionIds ?? this.subscriptionIds,
+  }) = _NiceFilterResultModel<T>;
+
+  const NiceFilterResultModel._();
+
+  factory NiceFilterResultModel.fromJson(Map<String, dynamic> json) {
+    return _$NiceFilterResultModelFromJson<T>(
+      json,
+      (jsonT) => NiceConfig.serializationConfig.deserialize<T>(jsonT as Map<String, dynamic>),
     );
   }
 
   @override
-  List<Object?> get props => [
-        page,
-        total,
-        values,
-        subscriptionIds,
-      ];
+  Map<String, dynamic> toJson() {
+    return _$NiceFilterResultModelToJson<T>(this, (value) => value.toJson());
+  }
 }

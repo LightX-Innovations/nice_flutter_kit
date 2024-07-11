@@ -8,7 +8,7 @@ import "package:nice_flutter_kit/nice_flutter_kit.dart";
 /// as the [NiceBaseListConfig].
 ///
 /// This widget is used as a shortcut for a [BlocListener] of <[NiceBaseListCubit], [NiceBaseListState]>.
-class NiceBaseListCubitListener<D> extends StatelessWidget {
+class NiceBaseListCubitListener<D extends FreezedClass> extends StatelessWidget {
   final BlocListenerCondition<NiceBaseListState<D>>? listenWhen;
   final BlocWidgetListener<NiceBaseListState<D>> listener;
   final Widget? child;

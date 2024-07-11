@@ -59,9 +59,7 @@ class NiceSerializationConfig {
 
   static String? inputToJson(NiceEnum? it) => it?.value;
   static NiceEnum? inputFromJson<T extends NiceEnum>(String? value) =>
-      NiceConfig.serializationConfig
-          .getEnumValues<T>()
-          .firstWhereOrNull((it) => it.value == value);
+      NiceConfig.serializationConfig.getEnumValues<T>().firstWhereOrNull((it) => it.value == value);
 }
 
 class NiceEnumJsonKey<T extends NiceEnum> extends JsonKey {

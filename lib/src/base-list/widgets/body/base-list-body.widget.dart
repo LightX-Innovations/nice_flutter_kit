@@ -2,8 +2,8 @@ import "package:flutter/gestures.dart";
 import "package:flutter/widgets.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-typedef NiceBaseListBodyBuilder<D> = Widget Function(D data);
-typedef NiceBaseListBodyBuilderIndexed<D> = Widget Function(D data, int index);
+typedef NiceBaseListBodyBuilder<D extends FreezedClass> = Widget Function(D data);
+typedef NiceBaseListBodyBuilderIndexed<D extends FreezedClass> = Widget Function(D data, int index);
 
 /// This widget is part of the base list, and MUST be a child of [NiceBaseListConfig]
 ///
@@ -11,7 +11,7 @@ typedef NiceBaseListBodyBuilderIndexed<D> = Widget Function(D data, int index);
 /// as the [NiceBaseListConfig].
 ///
 /// This widget is used to display the base list values.
-class NiceBaseListBody<D> extends StatelessWidget {
+class NiceBaseListBody<D extends FreezedClass> extends StatelessWidget {
   /// [Axis] on which this widget will scroll.
   final Axis scrollDirection;
 

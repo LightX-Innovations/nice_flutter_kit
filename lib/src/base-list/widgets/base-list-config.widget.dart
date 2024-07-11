@@ -15,8 +15,8 @@ import "package:provider/provider.dart";
 /// - The [config] will be provided in the context to it's child.
 /// - A [NiceBaseCubit] will be created and provided to it's child, based on the [config].
 ///
-class NiceBaseListConfig<D> extends StatelessWidget {
-  static NiceBaseListConfigData<D> of<D>(BuildContext context, {bool listen = false}) =>
+class NiceBaseListConfig<D extends FreezedClass> extends StatelessWidget {
+  static NiceBaseListConfigData<D> of<D extends FreezedClass>(BuildContext context, {bool listen = false}) =>
       Provider.of(context, listen: listen);
 
   /// [NiceBaseListConfigData] that will be used for the base list and provided to this widget's child.

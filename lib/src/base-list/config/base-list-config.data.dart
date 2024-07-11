@@ -1,7 +1,7 @@
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
 /// Config that will be used to determine the behavior of the base list.
-class NiceBaseListConfigData<D> {
+class NiceBaseListConfigData<D extends FreezedClass> {
   /// Provider that will be used to provide values.
   final NiceBaseListDataFilterProvider<D> dataFilterProvider;
 

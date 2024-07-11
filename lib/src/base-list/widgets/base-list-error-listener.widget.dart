@@ -7,7 +7,7 @@ import "package:nice_flutter_kit/nice_flutter_kit.dart";
 /// as the [NiceBaseListConfig].
 ///
 /// This widget is used to listen on errors from the [NiceBaseListCubit].
-class NiceBaseListErrorListener<D> extends StatelessWidget {
+class NiceBaseListErrorListener<D extends FreezedClass> extends StatelessWidget {
   final void Function(BuildContext context) onError;
   final Widget? child;
 

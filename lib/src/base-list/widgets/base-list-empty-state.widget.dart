@@ -10,7 +10,7 @@ import "package:nice_flutter_kit/nice_flutter_kit.dart";
 /// The empty state will only be showed if both of the following conditions are true:
 /// - The list has no values
 /// - The list has initialized and the first load has been completed
-class NiceBaseListEmptyState<D> extends StatelessWidget {
+class NiceBaseListEmptyState<D extends FreezedClass> extends StatelessWidget {
   final WidgetBuilder emptyStateBuilder;
   final Widget? child;
 

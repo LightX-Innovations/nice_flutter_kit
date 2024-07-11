@@ -8,7 +8,7 @@ import "package:nice_flutter_kit/nice_flutter_kit.dart";
 /// as the [NiceBaseListConfig].
 ///
 /// This widget is used as a shortcut for a [BlocBuilder] of <[NiceBaseListCubit], [NiceBaseListState]>.
-class NiceBaseListCubitBuilder<D> extends StatelessWidget {
+class NiceBaseListCubitBuilder<D extends FreezedClass> extends StatelessWidget {
   final BlocBuilderCondition<NiceBaseListState<D>>? buildWhen;
   final BlocWidgetBuilder<NiceBaseListState<D>> builder;
 

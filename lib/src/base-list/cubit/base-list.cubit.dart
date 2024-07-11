@@ -6,14 +6,14 @@ import "package:flutter/widgets.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-class NiceBaseListCubit<D> extends NiceBaseCubit<NiceBaseListState<D>> {
+class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseListState<D>> {
   final NiceBaseListConfigData<D> config;
 
   NiceBaseListCubit({
     required this.config,
   }) : super(NiceBaseListState<D>.initialState());
 
-  static NiceBaseListCubit<D> of<D>(BuildContext context, {listen = false}) =>
+  static NiceBaseListCubit<D> of<D extends FreezedClass>(BuildContext context, {listen = false}) =>
       BlocProvider.of<NiceBaseListCubit<D>>(context, listen: listen);
 
   /// Applies

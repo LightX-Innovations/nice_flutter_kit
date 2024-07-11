@@ -8,7 +8,7 @@ import "package:nice_flutter_kit/nice_flutter_kit.dart";
 ///
 /// This widget will display a circular loading spinner over it's child whenever the [NiceBaseListCubit] loads.
 /// This widget should normally be placed over the list body.
-class NiceBaseListLoadingIndicator<D> extends StatelessWidget {
+class NiceBaseListLoadingIndicator<D extends FreezedClass> extends StatelessWidget {
   /// [Color] of the loading spinner.
   final Color? color;
 

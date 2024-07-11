@@ -1,20 +1,17 @@
-import "package:equatable/equatable.dart";
+import "package:freezed_annotation/freezed_annotation.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-// ignore: must_be_immutable
-class NiceFilterResultPageModel extends Equatable {
-  final int number;
-  final int size;
+part "filter-result-page.model.freezed.dart";
+part "filter-result-page.model.g.dart";
 
-  const NiceFilterResultPageModel({
-    required this.number,
-    required this.size,
-  });
+@freezed
+class NiceFilterResultPageModel with _$NiceFilterResultPageModel implements FreezedClass {
+  const factory NiceFilterResultPageModel({
+    required int number,
+    required int size,
+  }) = _NiceFilterResultPageModel;
 
-  NiceFilterResultPageModel.fromJson(Json json)
-      : number = json["number"],
-        size = json["size"];
+  const NiceFilterResultPageModel._();
 
-  @override
-  List<Object> get props => [number, size];
+  factory NiceFilterResultPageModel.fromJson(Map<String, dynamic> json) => _$NiceFilterResultPageModelFromJson(json);
 }

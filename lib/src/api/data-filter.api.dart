@@ -1,15 +1,14 @@
 import "package:dio/dio.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-abstract class NiceDataFilterApi<T> extends NiceBaseApi {
-  final Dio dio;
-
-  const NiceDataFilterApi(
-    String path, {
+abstract class NiceDataFilterApi<T extends FreezedClass> extends NiceBaseApi {
+  const NiceDataFilterApi({
+    required String path,
+    required Dio dio,
     NiceApiConfig? overrideConfig,
-    required this.dio,
   }) : super(
-          path,
+          path: path,
+          dio: dio,
           overrideConfig: overrideConfig,
         );
 

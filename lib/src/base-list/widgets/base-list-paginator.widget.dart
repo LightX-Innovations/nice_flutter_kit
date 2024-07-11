@@ -9,7 +9,7 @@ import "package:nice_flutter_kit/nice_flutter_kit.dart";
 ///
 /// This widget may only be used under a [NiceBaseListConfig] whose [NiceBaseListConfigData]'s mode support a paginator
 /// (i.e. [NiceBaseListMode.Paginated])
-class NiceBaseListPaginator<D> extends StatefulWidget {
+class NiceBaseListPaginator<D extends FreezedClass> extends StatefulWidget {
   /// List of page sizes that the user will be able to select.
   /// Items of the list will be reordered in ascending order.
   final List<int> pageSizes;
@@ -32,7 +32,7 @@ class NiceBaseListPaginator<D> extends StatefulWidget {
   State<NiceBaseListPaginator<D>> createState() => _NiceBaseListPaginatorState();
 }
 
-class _NiceBaseListPaginatorState<D> extends State<NiceBaseListPaginator<D>> {
+class _NiceBaseListPaginatorState<D extends FreezedClass> extends State<NiceBaseListPaginator<D>> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
