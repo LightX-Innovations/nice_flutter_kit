@@ -21,11 +21,17 @@ class NiceSerializationConfig {
     this.enumValues = const {},
   });
 
+  bool isVoid<T>() => T == NiceVoid;
+
   bool canDeserialize<T>() => adapters[T]?.deserializer != null;
   bool canSerialize<T>() => adapters[T]?.serializer != null;
   bool enumHasValues<T>() => enumValues[T]?.isNotEmpty ?? false;
 
   T deserialize<T>(Map<String, dynamic> json) {
+    if (isVoid<T>()) {
+      return const NiceVoid() as T;
+    }
+
     if (!canDeserialize<T>()) {
       throw "Unimplemented deserializer function for type ${T.toString()}";
     }
@@ -34,10 +40,18 @@ class NiceSerializationConfig {
   }
 
   List<T> deserializeList<T>(List<Map<String, dynamic>> json) {
+    if (isVoid<T>()) {
+      return List<T>.filled(json.length, const NiceVoid() as T);
+    }
+
     return json.map((it) => deserialize<T>(it)).toList();
   }
 
   Map<String, dynamic> serialize<T>(T value) {
+    if (isVoid<T>()) {
+      return const {};
+    }
+
     if (!canSerialize<T>()) {
       throw "Unimplemented serializer function for type ${T.toString()}";
     }
@@ -46,6 +60,10 @@ class NiceSerializationConfig {
   }
 
   List<Map<String, dynamic>> serializeList<T>(List<T> values) {
+    if (isVoid<T>()) {
+      return List<Map<String, dynamic>>.filled(values.length, const {});
+    }
+
     return values.map((it) => serialize<T>(it)).toList();
   }
 
@@ -67,7 +85,6 @@ class NiceEnumJsonKey<T extends NiceEnum> extends JsonKey {
     final Object? defaultValue,
     final bool? disallowNullValue,
     final Function? fromJson,
-    final bool? ignore,
     final bool? includeFromJson,
     final bool? includeIfNull,
     final bool? includeToJson,
@@ -80,7 +97,6 @@ class NiceEnumJsonKey<T extends NiceEnum> extends JsonKey {
           defaultValue: defaultValue,
           disallowNullValue: disallowNullValue,
           fromJson: fromJson ?? NiceSerializationConfig.inputFromJson<T>,
-          ignore: ignore,
           includeFromJson: includeFromJson,
           includeIfNull: includeIfNull,
           includeToJson: includeToJson,
