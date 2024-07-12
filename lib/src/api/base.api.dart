@@ -29,7 +29,7 @@ abstract class NiceBaseApi {
   }
 
   /// Convenience method to make an HTTP GET request.
-  Future<Response<ResponseType>> get<ResponseType extends FreezedClass>(
+  Future<ResponseType> get<ResponseType extends FreezedClass>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -45,12 +45,11 @@ abstract class NiceBaseApi {
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP GET request.
-  Future<Response<List<ResponseType>>> getList<ResponseType extends FreezedClass>(
+  Future<List<ResponseType>> getList<ResponseType extends FreezedClass>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -66,12 +65,11 @@ abstract class NiceBaseApi {
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP GET request with [Uri].
-  Future<Response<ResponseType>> getUri<ResponseType extends FreezedClass>(
+  Future<ResponseType> getUri<ResponseType extends FreezedClass>(
     Uri uri, {
     Object? data,
     Options? options,
@@ -85,12 +83,11 @@ abstract class NiceBaseApi {
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP GET request with [Uri].
-  Future<Response<List<ResponseType>>> getUriList<ResponseType extends FreezedClass>(
+  Future<List<ResponseType>> getUriList<ResponseType extends FreezedClass>(
     Uri uri, {
     Object? data,
     Options? options,
@@ -104,12 +101,11 @@ abstract class NiceBaseApi {
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP POST request.
-  Future<Response<ResponseType>> post<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<ResponseType> post<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     String path, {
     DtoType? data,
     Map<String, dynamic>? queryParameters,
@@ -127,12 +123,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP POST request.
-  Future<Response<List<ResponseType>>> postList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<List<ResponseType>> postList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     String path, {
     DtoType? data,
     Map<String, dynamic>? queryParameters,
@@ -150,12 +145,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP POST request with [Uri].
-  Future<Response<ResponseType>> postUri<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<ResponseType> postUri<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     Uri uri, {
     DtoType? data,
     Options? options,
@@ -171,12 +165,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP POST request with [Uri].
-  Future<Response<List<ResponseType>>> postUriList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<List<ResponseType>> postUriList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     Uri uri, {
     DtoType? data,
     Options? options,
@@ -192,12 +185,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PUT request.
-  Future<Response<ResponseType>> put<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<ResponseType> put<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     String path, {
     DtoType? data,
     Map<String, dynamic>? queryParameters,
@@ -215,12 +207,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PUT request.
-  Future<Response<List<ResponseType>>> putList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<List<ResponseType>> putList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     String path, {
     DtoType? data,
     Map<String, dynamic>? queryParameters,
@@ -238,12 +229,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PUT request with [Uri].
-  Future<Response<ResponseType>> putUri<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<ResponseType> putUri<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     Uri uri, {
     DtoType? data,
     Options? options,
@@ -259,12 +249,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PUT request with [Uri].
-  Future<Response<List<ResponseType>>> putUriList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<List<ResponseType>> putUriList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     Uri uri, {
     DtoType? data,
     Options? options,
@@ -280,12 +269,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PATCH request.
-  Future<Response<ResponseType>> patch<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<ResponseType> patch<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     String path, {
     DtoType? data,
     Map<String, dynamic>? queryParameters,
@@ -303,12 +291,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PATCH request.
-  Future<Response<List<ResponseType>>> patchList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<List<ResponseType>> patchList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     String path, {
     DtoType? data,
     Map<String, dynamic>? queryParameters,
@@ -326,12 +313,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PATCH request with [Uri].
-  Future<Response<ResponseType>> patchUri<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<ResponseType> patchUri<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     Uri uri, {
     DtoType? data,
     Options? options,
@@ -347,12 +333,11 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
-    return response as Response<ResponseType>;
+    return NiceConfig.serializationConfig.deserialize<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP PATCH request with [Uri].
-  Future<Response<List<ResponseType>>> patchUriList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
+  Future<List<ResponseType>> patchUriList<ResponseType extends FreezedClass, DtoType extends NiceDto>(
     Uri uri, {
     DtoType? data,
     Options? options,
@@ -368,8 +353,7 @@ abstract class NiceBaseApi {
       onSendProgress: onSendProgress,
       onReceiveProgress: onReceiveProgress,
     );
-    response.data = NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
-    return response as Response<List<ResponseType>>;
+    return NiceConfig.serializationConfig.deserializeList<ResponseType>(response.data);
   }
 
   /// Convenience method to make an HTTP DELETE request.

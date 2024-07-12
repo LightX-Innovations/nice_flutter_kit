@@ -76,34 +76,6 @@ class NiceSerializationConfig {
   }
 
   static String? inputToJson(NiceEnum? it) => it?.value;
-  static NiceEnum? inputFromJson<T extends NiceEnum>(String? value) =>
+  static T? inputFromJson<T extends NiceEnum>(String? value) =>
       NiceConfig.serializationConfig.getEnumValues<T>().firstWhereOrNull((it) => it.value == value);
-}
-
-class NiceEnumJsonKey<T extends NiceEnum> extends JsonKey {
-  const NiceEnumJsonKey({
-    final Object? defaultValue,
-    final bool? disallowNullValue,
-    final Function? fromJson,
-    final bool? includeFromJson,
-    final bool? includeIfNull,
-    final bool? includeToJson,
-    final String? name,
-    final Object? Function(Map p1, String p2)? readValue,
-    final bool? required,
-    final Function? toJson,
-    final Enum? unknownEnumValue,
-  }) : super(
-          defaultValue: defaultValue,
-          disallowNullValue: disallowNullValue,
-          fromJson: fromJson ?? NiceSerializationConfig.inputFromJson<T>,
-          includeFromJson: includeFromJson,
-          includeIfNull: includeIfNull,
-          includeToJson: includeToJson,
-          name: name,
-          readValue: readValue,
-          required: required,
-          toJson: toJson ?? NiceSerializationConfig.inputToJson,
-          unknownEnumValue: unknownEnumValue,
-        );
 }
