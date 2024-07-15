@@ -1,8 +1,6 @@
-import "package:equatable/equatable.dart";
-import "package:flutter/widgets.dart";
+import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-@immutable
-abstract class NiceBaseState extends Equatable {
+abstract class NiceBaseState implements FreezedClass {
   final bool loading;
   final bool error;
 
@@ -10,13 +8,4 @@ abstract class NiceBaseState extends Equatable {
     required this.loading,
     required this.error,
   });
-
-  const NiceBaseState.initialState()
-      : loading = false,
-        error = false;
-
-  NiceBaseState copyWithLoadingAndError({bool? loading, bool? error});
-
-  @override
-  List<Object?> get props;
 }

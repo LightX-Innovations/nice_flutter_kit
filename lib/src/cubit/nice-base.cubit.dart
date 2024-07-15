@@ -1,34 +1,104 @@
 import "dart:async";
 
-import "package:flutter/foundation.dart";
+import "package:async/async.dart";
 import "package:flutter_bloc/flutter_bloc.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
+import "package:synchronized/synchronized.dart" as sync;
+import "package:uuid/uuid.dart";
 
 abstract class NiceBaseCubit<S extends NiceBaseState> extends Cubit<S> {
   NiceBaseCubit(S initialState) : super(initialState);
 
-  @protected
+  final Map<String, CancelableOperation> cancelableOperations = {};
+  final _lock = sync.Lock();
+
   FutureOr<R?> wrap<R>({
+    bool loading = true,
+    required FutureOr<R> Function() callback,
+    FutureOr<R?> Function(Object e)? onError,
+    FutureOr<R?> Function()? onCancel,
+    bool isCancelable = true,
+    bool useLock = false,
+  }) async {
+    if (isClosed) {
+      return null;
+    }
+
+    if (!isCancelable) {
+      if (!useLock) {
+        return _wrap(
+          loading: loading,
+          callback: callback,
+          onError: onError,
+        );
+      }
+      return _lock.synchronized(
+        () => _wrap(
+          loading: loading,
+          callback: callback,
+          onError: onError,
+        ),
+      );
+    }
+    final operationId = const Uuid().v4();
+    final operation = CancelableOperation.fromFuture(
+      () async {
+        if (!useLock) {
+          return _wrap(
+            loading: loading,
+            callback: callback,
+            onError: onError,
+          );
+        }
+        return _lock.synchronized(
+          () => _wrap(
+            loading: loading,
+            callback: callback,
+            onError: onError,
+          ),
+        );
+      }()
+          .whenComplete(
+        () => cancelableOperations.remove(operationId),
+      ),
+      onCancel: onCancel,
+    );
+    cancelableOperations[operationId] = operation;
+    return operation.value;
+  }
+
+  @override
+  Future<void> close() async {
+    await Future.wait(
+      cancelableOperations.values.map((e) => e.cancel()),
+    );
+    await super.close();
+  }
+
+  FutureOr<R?> _wrap<R>({
     bool loading = true,
     required FutureOr<R> Function() callback,
     FutureOr<R?> Function(Object e)? onError,
   }) async {
     try {
       if (loading) {
-        emit(state.copyWithLoadingAndError(loading: true) as S);
+        // ignore: avoid_dynamic_calls
+        emit(state.copyWith(loading: true));
       }
       final result = await callback();
       if (loading) {
-        emit(state.copyWithLoadingAndError(loading: false) as S);
+        // ignore: avoid_dynamic_calls
+        emit(state.copyWith(loading: false));
       }
       return result;
     } catch (e, s) {
       await NiceConfig.baseCubitConfig?.wrapErrorHandler(e, s);
       emit(
-        state.copyWithLoadingAndError(
+        // ignore: avoid_dynamic_calls
+        state.copyWith(
           loading: loading ? false : state.loading,
           error: true,
-        ) as S,
+        ),
       );
       return await onError?.call(e);
     }
