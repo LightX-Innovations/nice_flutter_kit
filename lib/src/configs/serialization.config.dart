@@ -1,5 +1,4 @@
 import "package:collection/collection.dart";
-import "package:freezed_annotation/freezed_annotation.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
 class JsonAdapter<T> {
