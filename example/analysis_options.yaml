@@ -1,4 +1,0 @@
-analyzer:
-  exclude: [build/**]
-
-include: package:nice_flutter_kit/lints.yaml
