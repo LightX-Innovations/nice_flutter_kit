@@ -38,12 +38,12 @@ class NiceSerializationConfig {
     return adapters[T]!.deserializer!(json);
   }
 
-  List<T> deserializeList<T>(List<Map<String, dynamic>> json) {
+  List<T> deserializeList<T>(List<dynamic> json) {
     if (isVoid<T>()) {
       return List<T>.filled(json.length, const NiceVoid() as T);
     }
 
-    return json.map((it) => deserialize<T>(it)).toList();
+    return json.map((it) => deserialize<T>(it as Map<String, dynamic>)).toList();
   }
 
   Map<String, dynamic> serialize<T>(T value) {
