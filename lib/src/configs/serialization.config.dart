@@ -26,7 +26,7 @@ class NiceSerializationConfig {
   bool canSerialize<T>() => adapters[T]?.serializer != null;
   bool enumHasValues<T>() => enumValues[T]?.isNotEmpty ?? false;
 
-  T deserialize<T>(Map<String, dynamic> json) {
+  T deserialize<T>(dynamic json) {
     if (isVoid<T>()) {
       return const NiceVoid() as T;
     }
@@ -35,7 +35,7 @@ class NiceSerializationConfig {
       throw "Unimplemented deserializer function for type ${T.toString()}";
     }
 
-    return adapters[T]!.deserializer!(json);
+    return adapters[T]!.deserializer!(json as Map<String, dynamic>);
   }
 
   List<T> deserializeList<T>(List<dynamic> json) {
