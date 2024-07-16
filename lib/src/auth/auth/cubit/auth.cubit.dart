@@ -8,7 +8,7 @@ class NiceAuthCubit<User extends Object, Account extends Object> extends NiceBas
 
   NiceAuthCubit({
     required this.authProvider,
-  }) : super(NiceAuthState.initialState());
+  }) : super(const NiceAuthState());
 
   static NiceAuthCubit<User, Account> of<User extends Object, Account extends Object>(BuildContext context) =>
       BlocProvider.of<NiceAuthCubit<User, Account>>(context);
@@ -24,13 +24,13 @@ class NiceAuthCubit<User extends Object, Account extends Object> extends NiceBas
       callback: () async {
         final user = await authProvider.getCurrentUser();
         if (user == null) {
-          emit(state.copyWithUserAndAccount(null, null));
+          emit(state.copyWith(user: null, account: null));
           return;
         }
 
         final account = await authProvider.getCurrentAccount();
 
-        emit(state.copyWithUserAndAccount(user, account));
+        emit(state.copyWith(user: user, account: account));
       },
     );
   }
@@ -40,7 +40,7 @@ class NiceAuthCubit<User extends Object, Account extends Object> extends NiceBas
     await wrap(
       callback: () async {
         await authProvider.signOut();
-        emit(state.copyWithUserAndAccount(null, null));
+        emit(state.copyWith(user: null, account: null));
       },
     );
   }

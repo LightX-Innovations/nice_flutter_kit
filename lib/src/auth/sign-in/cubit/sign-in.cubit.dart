@@ -22,7 +22,7 @@ class NiceSignInCubit<SocialProviders> extends NiceBaseCubit<NiceSignInState> {
     required this.signInProvider,
     required this.authCubit,
     required this.config,
-  }) : super(const NiceSignInState.initialState()) {
+  }) : super(const NiceSignInState()) {
     signInWithPasswordFormGroup.valueChanges.takeUntil(unsubscribeAll$).listen((_) => resetInvalidCredentials());
 
     if (config.signInEmailFieldValidators != null) {

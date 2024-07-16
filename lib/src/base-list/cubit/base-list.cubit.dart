@@ -11,7 +11,7 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
 
   NiceBaseListCubit({
     required this.config,
-  }) : super(NiceBaseListState<D>.initialState());
+  }) : super(NiceBaseListState<D>());
 
   static NiceBaseListCubit<D> of<D extends FreezedClass>(BuildContext context, {listen = false}) =>
       BlocProvider.of<NiceBaseListCubit<D>>(context, listen: listen);
@@ -25,12 +25,13 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
   /// and loads if [NiceBaseListConfigData.autoLoad] is true.
   Future<void> applyDefaultConfigAndMaybeLoad() async {
     emit(
-      state
-          .copyWith(pageSize: config.pageSize)
-          .copyWithNextPage(config.initialPage)
-          .copyWithSearchQuery(config.initialSearch?.value)
-          .copyWithQuery(config.initialQuery)
-          .copyWithOrder(config.initialOrder),
+      state.copyWith(
+        pageSize: config.pageSize,
+        nextPage: config.initialPage,
+        searchQuery: config.initialSearch?.value,
+        query: config.initialQuery,
+        order: config.initialOrder,
+      ),
     );
 
     if (config.autoLoad) {
@@ -44,7 +45,7 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
   /// replaced by the values to be loaded.
   Future<void> load({required bool resetPaging}) async {
     if (resetPaging) {
-      emit(state.copyWithNextPage(0));
+      emit(state.copyWith(nextPage: 0));
     }
 
     await wrap(
@@ -125,7 +126,7 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
               if (config.mode.keepPreviousValuesOnPageChange && !forceReplaceValues) ...state.values,
               ...result.values,
             ],
-          ).copyWithNextPage(result.nextPage),
+          ).copyWith(nextPage: result.nextPage),
         );
       },
     );
@@ -135,7 +136,7 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
 
   /// Sets the [NiceBaseListState.searchQuery].
   Future<void> setSearchQuery(String? searchQuery, {bool reload = true}) async {
-    emit(state.copyWithSearchQuery(searchQuery));
+    emit(state.copyWith(searchQuery: searchQuery));
     if (reload) {
       await load(resetPaging: true);
     }
@@ -143,7 +144,7 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
 
   /// Sets the [NiceBaseListState.query].
   Future<void> setQuery(NiceFilterQueryModel? query, {bool reload = true}) async {
-    emit(state.copyWithQuery(query));
+    emit(state.copyWith(query: query));
     if (reload) {
       await load(resetPaging: true);
     }
@@ -151,7 +152,7 @@ class NiceBaseListCubit<D extends FreezedClass> extends NiceBaseCubit<NiceBaseLi
 
   /// Sets the [NiceBaseListState.order].
   Future<void> setOrder(List<NiceFilterOrderModel>? order, {bool reload = true}) async {
-    emit(state.copyWithOrder(order));
+    emit(state.copyWith(order: order));
     if (reload) {
       await load(resetPaging: true);
     }

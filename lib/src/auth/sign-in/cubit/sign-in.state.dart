@@ -1,36 +1,20 @@
+import "package:freezed_annotation/freezed_annotation.dart";
 import "package:nice_flutter_kit/nice_flutter_kit.dart";
 
-class NiceSignInState extends NiceBaseState {
-  /// Whether the user entered invalid credentials
-  final bool invalidCredentials;
+part "sign-in.state.freezed.dart";
+part "sign-in.state.g.dart";
 
-  const NiceSignInState({
-    required super.loading,
-    required super.error,
-    required this.invalidCredentials,
-  });
+@freezed
+class NiceSignInState with _$NiceSignInState implements NiceBaseState {
+  const factory NiceSignInState({
+    @Default(false) bool loading,
+    @Default(false) bool error,
 
-  const NiceSignInState.initialState()
-      : invalidCredentials = false,
-        super.initialState();
+    /// Whether the user entered invalid credentials
+    @Default(false) bool invalidCredentials,
+  }) = _NiceSignInState;
 
-  @override
-  NiceBaseState copyWithLoadingAndError({bool? loading, bool? error}) {
-    return copyWith(loading: loading, error: error);
-  }
+  const NiceSignInState._();
 
-  NiceSignInState copyWith({
-    bool? loading,
-    bool? error,
-    bool? invalidCredentials,
-  }) {
-    return NiceSignInState(
-      loading: loading ?? this.loading,
-      error: error ?? false,
-      invalidCredentials: invalidCredentials ?? this.invalidCredentials,
-    );
-  }
-
-  @override
-  List<Object?> get props => [loading, error, invalidCredentials];
+  factory NiceSignInState.fromJson(Map<String, dynamic> json) => _$NiceSignInStateFromJson(json);
 }
