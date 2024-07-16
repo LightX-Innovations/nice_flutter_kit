@@ -12,6 +12,8 @@ abstract class NiceBaseCubit<S extends NiceBaseState> extends Cubit<S> {
   final Map<String, CancelableOperation> cancelableOperations = {};
   final _lock = sync.Lock();
 
+  dynamic get dynamicState => state as dynamic;
+
   FutureOr<R?> wrap<R>({
     bool loading = true,
     required FutureOr<R> Function() callback,
@@ -83,19 +85,19 @@ abstract class NiceBaseCubit<S extends NiceBaseState> extends Cubit<S> {
     try {
       if (loading) {
         // ignore: avoid_dynamic_calls
-        emit(state.copyWith(loading: true));
+        emit(dynamicState.copyWith(loading: true));
       }
       final result = await callback();
       if (loading) {
         // ignore: avoid_dynamic_calls
-        emit(state.copyWith(loading: false));
+        emit(dynamicState.copyWith(loading: false));
       }
       return result;
     } catch (e, s) {
       await NiceConfig.baseCubitConfig?.wrapErrorHandler(e, s);
       emit(
         // ignore: avoid_dynamic_calls
-        state.copyWith(
+        dynamicState.copyWith(
           loading: loading ? false : state.loading,
           error: true,
         ),
