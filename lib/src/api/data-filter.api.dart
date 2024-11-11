@@ -14,7 +14,7 @@ abstract class NiceDataFilterApi<T extends FreezedClass> extends NiceBaseApi {
 
   Future<NiceFilterResultModel<T>> filter(NiceFilterModel filter) async {
     final res = await dio.post(url("filter"), data: filter.toJson());
-    return NiceFilterResultModel.fromJson(res.data);
+    return NiceFilterResultModel<T>.fromJson(res.data);
   }
 
   Future<int> filterCount(NiceFilterModel filter) async {
